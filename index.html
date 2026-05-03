@@ -1281,7 +1281,7 @@ html, body {
 // ─────────────────────────────────────────────
 // START DATE: 27 de abril de 2025
 // ─────────────────────────────────────────────
-const START_DATE = new Date(2025, 3, 27); // meses 0-based: 3 = abril
+const START_DATE = new Date(2026, 3, 27); // meses 0-based: 3 = abril
 
 // ─────────────────────────────────────────────
 // PLANO ALIMENTAR — 30 DIAS
@@ -1688,6 +1688,13 @@ function loadState() {
       S.shopChecks = p.shopChecks || {};
     }
   } catch(e) {}
+  // Pre-marcar todos os dias anteriores ao dia atual (sem sobrescrever escolhas do usuario)
+  const cur = todayDay();
+  for (let d = 1; d < cur; d++) {
+    if (S.checkedDays[d] === undefined) {
+      S.checkedDays[d] = true;
+    }
+  }
 }
 
 function saveState() {
