@@ -1162,6 +1162,240 @@ html, body {
 
 .rec-card.open .rec-chevron { transform: rotate(180deg); }
 
+
+/* ── DASHBOARD ── */
+.dash-hero {
+  margin: 14px 14px 0;
+  background: linear-gradient(135deg, var(--blue2) 0%, #1d4ed8 100%);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dash-hero::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+
+.dash-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+
+.dash-hero-day {
+  font-size: 56px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -3px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.dash-hero-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.dash-hero-bar-wrap {
+  background: rgba(255,255,255,0.15);
+  border-radius: 6px;
+  height: 6px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.dash-hero-bar-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 6px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.dash-hero-bar-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.65);
+  font-weight: 500;
+}
+
+.dash-grid {
+  margin: 10px 14px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.dash-grid-3 {
+  margin: 10px 14px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.dash-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 14px 12px;
+  box-shadow: var(--shadow);
+}
+
+.dash-card-full {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  box-shadow: var(--shadow);
+  margin: 10px 14px 0;
+}
+
+.dash-val {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.dash-val.blue { color: var(--blue2); }
+.dash-val.green { color: #16a34a; }
+.dash-val.amber { color: var(--amber); }
+.dash-val.red { color: var(--red); }
+
+.dash-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dash-card-sub {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+.dash-section-label {
+  padding: 16px 18px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.dash-week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin: 0 14px;
+}
+
+.dash-week-day {
+  aspect-ratio: 1;
+  border-radius: 7px;
+  border: 1.5px solid var(--border);
+  background: var(--bg2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text3);
+}
+
+.dash-week-day.done {
+  background: var(--green-dim);
+  border-color: var(--green-bdr);
+  color: #16a34a;
+}
+
+.dash-week-day.today {
+  background: var(--blue-dim);
+  border-color: var(--blue);
+  color: var(--blue2);
+}
+
+.dash-week-day.future {
+  opacity: 0.3;
+}
+
+.dash-macro-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.dash-macro-row:last-child { border-bottom: none; }
+
+.dash-macro-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.dash-macro-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text2);
+}
+
+.dash-phase-row {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.dash-phase-row:last-child { border-bottom: none; }
+
+.dash-phase-bar-wrap {
+  background: var(--bg4);
+  border-radius: 4px;
+  height: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.dash-phase-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.dash-phase-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.dash-phase-range {
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 400;
+}
+
+.dash-phase-status {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
 /* ── UTILS ── */
 .spacer { height: 16px; }
 
@@ -1236,18 +1470,161 @@ html, body {
         <div class="meal-list" id="td-meals"></div>
       </div>
 
-      <div class="stat-row">
-        <div class="stat-card">
-          <div class="stat-val" id="stat-streak">0</div>
-          <div class="stat-label">Sequencia</div>
+      <div class="spacer"></div>
+    </div>
+
+
+    <!-- DASHBOARD -->
+    <div class="section" id="sec-dash">
+      <div class="page-title">Resumo<small>Visao geral do seu Whole30</small></div>
+
+      <!-- Hero card -->
+      <div class="dash-hero">
+        <div class="dash-hero-day" id="dash-day-num">7</div>
+        <div class="dash-hero-label" id="dash-day-label">de 30 dias — voce esta no caminho certo</div>
+        <div class="dash-hero-bar-wrap">
+          <div class="dash-hero-bar-fill" id="dash-hero-fill" style="width:0%"></div>
         </div>
-        <div class="stat-card">
-          <div class="stat-val" id="stat-remain">30</div>
-          <div class="stat-label">Dias restantes</div>
+        <div class="dash-hero-bar-label" id="dash-hero-label-pct">0% concluido</div>
+      </div>
+
+      <!-- Stats grid 2x2 -->
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="dash-val blue" id="dash-streak">0</div>
+          <div class="dash-card-label">Sequencia</div>
+          <div class="dash-card-sub" id="dash-streak-sub">dias seguidos</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-val green" id="dash-done">0</div>
+          <div class="dash-card-label">Concluidos</div>
+          <div class="dash-card-sub">de 30 dias</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-val amber" id="dash-remain">30</div>
+          <div class="dash-card-label">Restantes</div>
+          <div class="dash-card-sub">dias ate o fim</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-val" id="dash-end-val" style="color:var(--text2);font-size:16px;padding-top:4px">—</div>
+          <div class="dash-card-label">Data de conclusao</div>
+          <div class="dash-card-sub">dia 30</div>
         </div>
       </div>
 
-      <div class="spacer"></div>
+      <!-- Semana atual -->
+      <div class="dash-section-label">Semana atual</div>
+      <div class="dash-week-grid" id="dash-week-grid"></div>
+
+      <!-- Fases do programa -->
+      <div class="dash-section-label">Fases do programa</div>
+      <div class="card" style="margin:0 14px">
+        <div class="dash-phase-row">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <div>
+              <span class="dash-phase-name">Adaptacao</span>
+              <span class="dash-phase-range"> — Dias 1 a 3</span>
+            </div>
+            <span class="dash-phase-status" id="phase-s1" style="background:var(--green-dim);color:#16a34a;border:1px solid var(--green-bdr)">Concluida</span>
+          </div>
+          <div class="dash-phase-bar-wrap"><div class="dash-phase-bar-fill" id="phase-bar1" style="width:100%;background:var(--green)"></div></div>
+        </div>
+        <div class="dash-phase-row">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <div>
+              <span class="dash-phase-name">Fase dificil</span>
+              <span class="dash-phase-range"> — Dias 4 a 11</span>
+            </div>
+            <span class="dash-phase-status" id="phase-s2" style="background:var(--blue-dim);color:var(--blue2);border:1px solid var(--blue-bdr)">Atual</span>
+          </div>
+          <div class="dash-phase-bar-wrap"><div class="dash-phase-bar-fill" id="phase-bar2" style="width:37%;background:var(--blue)"></div></div>
+        </div>
+        <div class="dash-phase-row">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <div>
+              <span class="dash-phase-name">Tiger Blood</span>
+              <span class="dash-phase-range"> — Dias 15 a 21</span>
+            </div>
+            <span class="dash-phase-status" id="phase-s3" style="background:var(--bg3);color:var(--text3);border:1px solid var(--border)">Em breve</span>
+          </div>
+          <div class="dash-phase-bar-wrap"><div class="dash-phase-bar-fill" id="phase-bar3" style="width:0%;background:var(--amber)"></div></div>
+        </div>
+        <div class="dash-phase-row">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <div>
+              <span class="dash-phase-name">Linha de chegada</span>
+              <span class="dash-phase-range"> — Dias 22 a 30</span>
+            </div>
+            <span class="dash-phase-status" id="phase-s4" style="background:var(--bg3);color:var(--text3);border:1px solid var(--border)">Em breve</span>
+          </div>
+          <div class="dash-phase-bar-wrap"><div class="dash-phase-bar-fill" id="phase-bar4" style="width:0%;background:var(--green)"></div></div>
+        </div>
+      </div>
+
+      <!-- O que voce come -->
+      <div class="dash-section-label">Estrutura das suas refeicoes</div>
+      <div class="dash-card-full">
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Cafe da manha</div>
+          <div class="dash-macro-val">Ovos + fruta</div>
+        </div>
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Almoco</div>
+          <div class="dash-macro-val">Proteina + batata</div>
+        </div>
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Jantar</div>
+          <div class="dash-macro-val">Proteina + batata</div>
+        </div>
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Snack</div>
+          <div class="dash-macro-val">Proteina + gordura</div>
+        </div>
+      </div>
+
+      <!-- Proteinas rodizio -->
+      <div class="dash-section-label">Rodizio de proteinas</div>
+      <div class="dash-card-full">
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Frango grelhado</div>
+          <div class="dash-macro-val" style="color:var(--green);font-weight:700">Principal</div>
+        </div>
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Carne moida</div>
+          <div class="dash-macro-val" style="color:var(--blue2);font-weight:700">Alternativa</div>
+        </div>
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Bife grelhado</div>
+          <div class="dash-macro-val" style="color:var(--blue2);font-weight:700">Alternativa</div>
+        </div>
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Ovo</div>
+          <div class="dash-macro-val" style="color:var(--amber);font-weight:700">Cafe + snack</div>
+        </div>
+      </div>
+
+      <!-- Datas -->
+      <div class="dash-section-label">Linha do tempo</div>
+      <div class="dash-card-full">
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Inicio do programa</div>
+          <div class="dash-macro-val">27 de abril</div>
+        </div>
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Hoje</div>
+          <div class="dash-macro-val" id="dash-today-date">—</div>
+        </div>
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Conclusao prevista</div>
+          <div class="dash-macro-val">26 de maio</div>
+        </div>
+        <div class="dash-macro-row">
+          <div class="dash-macro-name">Dias de programa</div>
+          <div class="dash-macro-val" id="dash-total-days">30</div>
+        </div>
+      </div>
+
+      <div class="spacer" style="height:20px"></div>
     </div>
 
     <!-- CALENDAR -->
@@ -1456,13 +1833,17 @@ html, body {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span>Hoje</span>
     </button>
-    <button class="nav-btn" id="nav-calendar" onclick="switchTab('calendar')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <span>Calendario</span>
+    <button class="nav-btn" id="nav-dash" onclick="switchTab('dash')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Resumo</span>
     </button>
     <button class="nav-btn" id="nav-plan" onclick="switchTab('plan')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
       <span>Plano</span>
+    </button>
+    <button class="nav-btn" id="nav-calendar" onclick="switchTab('calendar')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Cal.</span>
     </button>
     <button class="nav-btn" id="nav-shop" onclick="switchTab('shop')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.96 1.61h9.72a2 2 0 001.95-1.61L23 6H6"/></svg>
@@ -1947,9 +2328,11 @@ function doneCount() {
 }
 
 function streak() {
+  // Conta dias consecutivos a partir do dia 1 ate hoje
+  // Dias anteriores sao pre-marcados, entao a sequencia real e o nr de dias no programa
   const cur = todayDay();
   let s = 0;
-  for (let d = cur; d >= 1; d--) {
+  for (let d = 1; d <= cur; d++) {
     if (S.checkedDays[d]) s++;
     else break;
   }
@@ -2581,6 +2964,124 @@ function renderRecipes() {
   }).join('');
 }
 
+
+function renderDash() {
+  const cur = todayDay();
+  const done = doneCount();
+  const pct = Math.round((done / 30) * 100);
+  const str = streak();
+  const remain = Math.max(0, 30 - done);
+
+  // Hero
+  document.getElementById('dash-day-num').textContent = cur;
+  const heroLabel = cur <= 30 ? `de 30 dias — voce esta no caminho certo` : 'Programa concluido!';
+  document.getElementById('dash-day-label').textContent = heroLabel;
+  document.getElementById('dash-hero-fill').style.width = pct + '%';
+  document.getElementById('dash-hero-label-pct').textContent = pct + '% concluido';
+
+  // Stats
+  document.getElementById('dash-streak').textContent = str;
+  document.getElementById('dash-done').textContent = done;
+  document.getElementById('dash-remain').textContent = remain;
+
+  // End date (26 de maio)
+  document.getElementById('dash-end-val').textContent = '26 mai';
+
+  // Today date
+  const now = new Date();
+  const months = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  document.getElementById('dash-today-date').textContent = now.getDate() + ' de ' + ['janeiro','fevereiro','marco','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'][now.getMonth()];
+
+  // Week grid — show the 7 days of current week within the 30-day range
+  const weekStart = Math.max(1, cur - ((cur - 1) % 7));
+  const weekEnd = Math.min(30, weekStart + 6);
+  let weekHtml = '';
+  for (let d = weekStart; d <= weekEnd; d++) {
+    const isDone = !!S.checkedDays[d];
+    const isToday = d === cur;
+    const isFuture = d > cur;
+    let cls = 'dash-week-day';
+    if (isDone) cls += ' done';
+    else if (isToday) cls += ' today';
+    else if (isFuture) cls += ' future';
+    weekHtml += `<div class="${cls}">${d}</div>`;
+  }
+  // Pad to 7
+  for (let i = weekEnd - weekStart + 1; i < 7; i++) {
+    weekHtml += `<div class="dash-week-day future">—</div>`;
+  }
+  document.getElementById('dash-week-grid').innerHTML = weekHtml;
+
+  // Phase bars
+  // Phase 1: dias 1-3
+  const p1done = Math.min(3, cur - 1);
+  const p1pct = Math.round((p1done / 3) * 100);
+  document.getElementById('phase-bar1').style.width = p1pct + '%';
+  if (cur > 3) {
+    document.getElementById('phase-s1').textContent = 'Concluida';
+    document.getElementById('phase-s1').style.cssText = 'background:var(--green-dim);color:#16a34a;border:1px solid var(--green-bdr);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+    document.getElementById('phase-bar1').style.background = 'var(--green)';
+  } else if (cur >= 1) {
+    document.getElementById('phase-s1').textContent = 'Atual';
+    document.getElementById('phase-s1').style.cssText = 'background:var(--blue-dim);color:var(--blue2);border:1px solid var(--blue-bdr);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+    document.getElementById('phase-bar1').style.background = 'var(--blue)';
+  }
+
+  // Phase 2: dias 4-11 (8 dias)
+  if (cur > 11) {
+    document.getElementById('phase-bar2').style.width = '100%';
+    document.getElementById('phase-bar2').style.background = 'var(--green)';
+    document.getElementById('phase-s2').textContent = 'Concluida';
+    document.getElementById('phase-s2').style.cssText = 'background:var(--green-dim);color:#16a34a;border:1px solid var(--green-bdr);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+  } else if (cur >= 4) {
+    const p2pct = Math.round(((cur - 4) / 8) * 100);
+    document.getElementById('phase-bar2').style.width = p2pct + '%';
+    document.getElementById('phase-bar2').style.background = 'var(--blue)';
+    document.getElementById('phase-s2').textContent = 'Atual';
+    document.getElementById('phase-s2').style.cssText = 'background:var(--blue-dim);color:var(--blue2);border:1px solid var(--blue-bdr);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+  } else {
+    document.getElementById('phase-bar2').style.width = '0%';
+    document.getElementById('phase-s2').textContent = 'Em breve';
+    document.getElementById('phase-s2').style.cssText = 'background:var(--bg3);color:var(--text3);border:1px solid var(--border);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+  }
+
+  // Phase 3: dias 15-21 (7 dias)
+  if (cur > 21) {
+    document.getElementById('phase-bar3').style.width = '100%';
+    document.getElementById('phase-bar3').style.background = 'var(--green)';
+    document.getElementById('phase-s3').textContent = 'Concluida';
+    document.getElementById('phase-s3').style.cssText = 'background:var(--green-dim);color:#16a34a;border:1px solid var(--green-bdr);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+  } else if (cur >= 15) {
+    const p3pct = Math.round(((cur - 15) / 7) * 100);
+    document.getElementById('phase-bar3').style.width = p3pct + '%';
+    document.getElementById('phase-bar3').style.background = 'var(--amber)';
+    document.getElementById('phase-s3').textContent = 'Atual';
+    document.getElementById('phase-s3').style.cssText = 'background:var(--amber-dim);color:#92400e;border:1px solid var(--amber-bdr);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+  } else {
+    document.getElementById('phase-bar3').style.width = '0%';
+    document.getElementById('phase-s3').textContent = 'Em breve';
+    document.getElementById('phase-s3').style.cssText = 'background:var(--bg3);color:var(--text3);border:1px solid var(--border);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+  }
+
+  // Phase 4: dias 22-30 (9 dias)
+  if (cur > 30) {
+    document.getElementById('phase-bar4').style.width = '100%';
+    document.getElementById('phase-bar4').style.background = 'var(--green)';
+    document.getElementById('phase-s4').textContent = 'Concluida';
+    document.getElementById('phase-s4').style.cssText = 'background:var(--green-dim);color:#16a34a;border:1px solid var(--green-bdr);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+  } else if (cur >= 22) {
+    const p4pct = Math.round(((cur - 22) / 9) * 100);
+    document.getElementById('phase-bar4').style.width = p4pct + '%';
+    document.getElementById('phase-bar4').style.background = 'var(--green)';
+    document.getElementById('phase-s4').textContent = 'Atual';
+    document.getElementById('phase-s4').style.cssText = 'background:var(--green-dim);color:#16a34a;border:1px solid var(--green-bdr);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+  } else {
+    document.getElementById('phase-bar4').style.width = '0%';
+    document.getElementById('phase-s4').textContent = 'Em breve';
+    document.getElementById('phase-s4').style.cssText = 'background:var(--bg3);color:var(--text3);border:1px solid var(--border);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0';
+  }
+}
+
 function renderAll() {
   renderHeader();
   renderHome();
@@ -2588,6 +3089,7 @@ function renderAll() {
   renderPlan();
   renderShop(S.shopWeek);
   renderRecipes();
+  renderDash();
 }
 
 // ─────────────────────────────────────────────
