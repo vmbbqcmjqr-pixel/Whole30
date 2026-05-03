@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Whole30">
+<meta name="theme-color" content="#f5f7fa">
+<title>Whole30</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --bg:        #f5f7fa;
+  --bg2:       #ffffff;
+  --bg3:       #f0f4f8;
+  --bg4:       #e8edf3;
+  --border:    #dce3ec;
+  --border2:   #c8d4e0;
+  --text:      #1a2332;
+  --text2:     #4a5568;
+  --text3:     #8a99aa;
+  --blue:      #3b82f6;
+  --blue2:     #2563eb;
+  --blue-dim:  #eff6ff;
+  --blue-bdr:  #bfdbfe;
+  --green:     #22c55e;
+  --green-dim: #f0fdf4;
+  --green-bdr: #bbf7d0;
+  --red:       #ef4444;
+  --red-dim:   #fef2f2;
+  --red-bdr:   #fecaca;
+  --amber:     #f59e0b;
+  --amber-dim: #fffbeb;
+  --amber-bdr: #fde68a;
+  --radius:    14px;
+  --radius-sm: 10px;
+  --shadow:    0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px 14px;
+  padding-top: calc(14px + var(--safe-top));
+  flex-shrink: 0;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 10;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.header-brand {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--blue2);
+  letter-spacing: -0.5px;
+}
+
+.header-sub {
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.header-day-badge {
+  background: var(--blue-dim);
+  border: 1.5px solid var(--blue-bdr);
+  border-radius: 10px;
+  padding: 6px 12px;
+  text-align: center;
+}
+
+.header-day-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--blue2);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.header-day-sub {
+  font-size: 9px;
+  color: var(--blue);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.progress-wrap {
+  background: var(--bg4);
+  border-radius: 6px;
+  height: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--blue2));
+  border-radius: 6px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.progress-meta span {
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 500;
+}
+
+.progress-meta .done-count {
+  color: var(--blue2);
+  font-weight: 700;
+}
+
+/* ── SCROLL AREA ── */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(68px + var(--safe-bottom));
+  scrollbar-width: none;
+}
+.content::-webkit-scrollbar { display: none; }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  padding-bottom: var(--safe-bottom);
+  z-index: 100;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 9px 4px 7px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text3);
+  font-family: 'Inter', sans-serif;
+  transition: color 0.15s;
+}
+
+.nav-btn svg { width: 20px; height: 20px; }
+.nav-btn span { font-size: 10px; font-weight: 600; letter-spacing: 0.2px; }
+.nav-btn.active { color: var(--blue2); }
+
+/* ── SECTIONS ── */
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── PAGE TITLE ── */
+.page-title {
+  padding: 18px 18px 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.4px;
+}
+
+.page-title small {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text3);
+  margin-top: 2px;
+  letter-spacing: 0;
+}
+
+/* ── PHASE BANNER ── */
+.phase-banner {
+  margin: 14px 14px 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.phase-banner strong {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 3px;
+}
+
+.phase-banner.adapt { background: var(--amber-dim); border: 1px solid var(--amber-bdr); color: #92400e; }
+.phase-banner.adapt strong { color: var(--amber); }
+.phase-banner.hard { background: var(--red-dim); border: 1px solid var(--red-bdr); color: #991b1b; }
+.phase-banner.hard strong { color: var(--red); }
+.phase-banner.tiger { background: var(--blue-dim); border: 1px solid var(--blue-bdr); color: #1e40af; }
+.phase-banner.tiger strong { color: var(--blue2); }
+.phase-banner.finish { background: var(--green-dim); border: 1px solid var(--green-bdr); color: #14532d; }
+.phase-banner.finish strong { color: var(--green); }
+
+/* ── TODAY CARD ── */
+.today-card {
+  margin: 12px 14px 0;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.today-header {
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.today-day-num {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--blue2);
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.today-day-label {
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 3px;
+}
+
+.check-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.check-btn svg { width: 15px; height: 15px; }
+
+.check-btn.checked {
+  background: var(--green-dim);
+  border-color: var(--green-bdr);
+  color: #16a34a;
+}
+
+/* ── MEAL LIST ── */
+.meal-list { padding: 2px 0; }
+
+.meal-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.meal-row:last-child { border-bottom: none; }
+.meal-row:active { background: var(--bg3); }
+
+.meal-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border2);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s;
+  background: var(--bg);
+}
+
+.meal-circle.done {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.meal-circle svg { width: 10px; height: 10px; color: #fff; }
+
+.meal-info { flex: 1; min-width: 0; }
+
+.meal-type {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 1px;
+}
+
+.meal-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.meal-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.45;
+}
+
+/* ── STAT CARDS ── */
+.stat-row {
+  margin: 10px 14px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+.stat-val {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--blue2);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 500;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ── CALENDAR ── */
+.week-block { margin: 0 14px 14px; }
+
+.week-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 14px 0 7px;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  border-radius: 9px;
+  border: 1.5px solid var(--border);
+  background: var(--bg2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+
+.cal-day:active { transform: scale(0.92); }
+
+.cal-day.done { background: var(--green-dim); border-color: var(--green-bdr); }
+.cal-day.today { background: var(--blue-dim); border-color: var(--blue); }
+.cal-day.past:not(.done) { opacity: 0.45; }
+.cal-day.future { opacity: 0.25; cursor: default; }
+.cal-day.empty { opacity: 0; cursor: default; border-color: transparent; background: transparent; }
+
+.cal-num {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+
+.cal-day.done .cal-num { color: #16a34a; }
+.cal-day.today .cal-num { color: var(--blue2); }
+
+.cal-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-top: 2px;
+  display: none;
+}
+
+.cal-day.done .cal-dot { display: block; }
+
+.cal-legend {
+  display: flex;
+  gap: 14px;
+  padding: 4px 14px 14px;
+  flex-wrap: wrap;
+}
+
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 500;
+}
+
+.leg-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+}
+
+/* ── PLAN ── */
+.plan-week-header {
+  padding: 14px 18px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.plan-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  background: var(--bg2);
+  transition: background 0.12s;
+}
+
+.plan-row:active { background: var(--bg3); }
+
+.plan-num-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text3);
+  flex-shrink: 0;
+  transition: all 0.18s;
+}
+
+.plan-row.done .plan-num-box {
+  background: var(--green-dim);
+  border-color: var(--green-bdr);
+  color: #16a34a;
+}
+
+.plan-row.today .plan-num-box {
+  background: var(--blue-dim);
+  border-color: var(--blue-bdr);
+  color: var(--blue2);
+}
+
+.plan-info { flex: 1; min-width: 0; }
+
+.plan-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.plan-preview {
+  font-size: 12px;
+  color: var(--text3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plan-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.plan-badge.hoje {
+  background: var(--blue-dim);
+  color: var(--blue2);
+  border: 1px solid var(--blue-bdr);
+}
+
+.plan-badge.feito {
+  background: var(--green-dim);
+  color: #16a34a;
+  border: 1px solid var(--green-bdr);
+}
+
+/* ── SHOP ── */
+.shop-tabs {
+  display: flex;
+  gap: 0;
+  padding: 14px 14px 0;
+}
+
+.shop-tab {
+  flex: 1;
+  padding: 9px 4px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.14s;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.shop-tab:first-child { border-radius: 8px 0 0 8px; }
+.shop-tab:last-child { border-radius: 0 8px 8px 0; }
+.shop-tab:not(:first-child) { border-left: none; }
+
+.shop-tab.active {
+  background: var(--blue-dim);
+  border-color: var(--blue-bdr);
+  color: var(--blue2);
+}
+
+.shop-cat {
+  margin: 12px 14px 0;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.shop-cat-header {
+  padding: 10px 14px;
+  background: var(--bg3);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border);
+}
+
+.shop-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.shop-item:last-child { border-bottom: none; }
+.shop-item:active { background: var(--bg3); }
+
+.shop-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid var(--border2);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.14s;
+  background: var(--bg);
+}
+
+.shop-check.checked { background: var(--green); border-color: var(--green); }
+.shop-check svg { width: 10px; height: 10px; color: #fff; }
+
+.shop-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.shop-item.done-item .shop-text {
+  color: var(--text3);
+  text-decoration: line-through;
+}
+
+/* ── GUIDE ── */
+.guide-section-label {
+  padding: 18px 18px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.card {
+  margin: 0 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.card + .card { margin-top: 8px; }
+
+.card-header {
+  padding: 10px 14px;
+  background: var(--bg3);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border);
+}
+
+.prep-row {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+
+.prep-row:last-child { border-bottom: none; }
+
+.prep-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--blue-dim);
+  border: 1px solid var(--blue-bdr);
+  color: var(--blue2);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.prep-content { flex: 1; }
+
+.prep-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.prep-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+.sub-item {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sub-item:last-child { border-bottom: none; }
+
+.sub-from {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.sub-problem {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber);
+  margin-bottom: 5px;
+}
+
+.sub-arrow {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.sub-solution {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.45;
+}
+
+.rule-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+
+.rule-item:last-child { border-bottom: none; }
+
+.rule-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.rule-dot.no { background: var(--red); }
+.rule-dot.yes { background: var(--green); }
+.rule-dot.warn { background: var(--amber); }
+
+.rule-text {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.45;
+}
+
+.rule-text strong { color: var(--text); font-weight: 600; }
+
+.alert-card {
+  margin: 0 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.alert-card + .alert-card { margin-top: 8px; }
+
+.alert-card strong {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+
+.alert-card.danger { background: var(--red-dim); border: 1px solid var(--red-bdr); color: #991b1b; }
+.alert-card.danger strong { color: var(--red); }
+.alert-card.warn { background: var(--amber-dim); border: 1px solid var(--amber-bdr); color: #92400e; }
+.alert-card.warn strong { color: var(--amber); }
+.alert-card.info { background: var(--blue-dim); border: 1px solid var(--blue-bdr); color: #1e40af; }
+.alert-card.info strong { color: var(--blue2); }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 200;
+  display: none;
+  align-items: flex-end;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal-sheet {
+  background: var(--bg2);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding-bottom: calc(24px + var(--safe-bottom));
+  animation: slideUp 0.26s cubic-bezier(0.32, 0.72, 0, 1);
+  box-shadow: var(--shadow-md);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal-handle {
+  width: 36px;
+  height: 4px;
+  background: var(--border2);
+  border-radius: 2px;
+  margin: 12px auto 0;
+}
+
+.modal-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.modal-day-num {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--blue2);
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.modal-day-label {
+  font-size: 12px;
+  color: var(--text3);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.modal-close {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text2);
+  flex-shrink: 0;
+}
+
+.modal-close svg { width: 13px; height: 13px; }
+
+.modal-meal {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-meal-type {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 3px;
+}
+
+.modal-meal-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.modal-meal-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.55;
+}
+
+.modal-footer {
+  padding: 14px 18px;
+}
+
+.modal-check-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.18s;
+}
+
+.modal-check-btn.checked {
+  background: var(--green-dim);
+  border-color: var(--green-bdr);
+  color: #16a34a;
+}
+
+/* ── UTILS ── */
+.spacer { height: 16px; }
+
+/* ── NOTES CARD ── */
+.notes-box {
+  margin: 12px 14px 0;
+  padding: 12px 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.notes-box-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.notes-box-text {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+<div id="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-row">
+      <div>
+        <div class="header-brand">Whole30</div>
+        <div class="header-sub">Programa Completo</div>
+      </div>
+      <div class="header-day-badge">
+        <div class="header-day-num" id="hdr-day">—</div>
+        <div class="header-day-sub">Dia atual</div>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-meta">
+      <span><span class="done-count" id="prog-done">0</span> dias concluidos</span>
+      <span id="prog-pct">0% completo</span>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- HOME -->
+    <div class="section active" id="sec-home">
+      <div class="phase-banner" id="phase-banner"></div>
+
+      <div class="today-card" id="today-card">
+        <div class="today-header">
+          <div>
+            <div class="today-day-num" id="td-num">—</div>
+            <div class="today-day-label" id="td-label">Dia atual</div>
+          </div>
+          <button class="check-btn" id="td-check-btn" onclick="toggleDayCheck()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span id="td-check-label">Marcar dia</span>
+          </button>
+        </div>
+        <div class="meal-list" id="td-meals"></div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-val" id="stat-streak">0</div>
+          <div class="stat-label">Sequencia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-remain">30</div>
+          <div class="stat-label">Dias restantes</div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="section" id="sec-calendar">
+      <div class="page-title">Calendario<small>30 dias de programa</small></div>
+      <div id="cal-container"></div>
+      <div class="cal-legend">
+        <div class="leg-item">
+          <div class="leg-dot" style="background:var(--green-dim);border:1.5px solid var(--green-bdr)"></div>
+          Concluido
+        </div>
+        <div class="leg-item">
+          <div class="leg-dot" style="background:var(--blue-dim);border:1.5px solid var(--blue)"></div>
+          Hoje
+        </div>
+        <div class="leg-item">
+          <div class="leg-dot" style="background:var(--bg2);border:1.5px solid var(--border);opacity:0.5"></div>
+          Futuro
+        </div>
+      </div>
+    </div>
+
+    <!-- PLANO -->
+    <div class="section" id="sec-plan">
+      <div class="page-title">Plano Alimentar<small>Dias 1 a 30 — toque para detalhes</small></div>
+      <div id="plan-container"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- COMPRAS -->
+    <div class="section" id="sec-shop">
+      <div class="page-title">Lista de Compras<small>Organizada por semana</small></div>
+      <div class="shop-tabs">
+        <button class="shop-tab active" onclick="switchShopWeek(1)">Sem. 1<br><small style="font-weight:400;font-size:10px">Dias 1-7</small></button>
+        <button class="shop-tab" onclick="switchShopWeek(2)">Sem. 2<br><small style="font-weight:400;font-size:10px">Dias 8-14</small></button>
+        <button class="shop-tab" onclick="switchShopWeek(3)">Sem. 3<br><small style="font-weight:400;font-size:10px">Dias 15-21</small></button>
+        <button class="shop-tab" onclick="switchShopWeek(4)">Sem. 4+<br><small style="font-weight:400;font-size:10px">Dias 22-30</small></button>
+      </div>
+      <div id="shop-container"></div>
+      <div class="notes-box">
+        <div class="notes-box-label">Temperos base — todas as semanas</div>
+        <div class="notes-box-text">Sal grosso ou fino · Alho in natura · Azeite extravirgem · Pimenta-do-reino moida · Alho em po (opcional)</div>
+      </div>
+      <div class="alert-card warn" style="margin-top:10px">
+        <strong>Atencao ao comprar</strong>
+        Leia sempre o rotulo. Acucar, amido de milho e soja aparecem escondidos em carnes temperadas, caldos prontos e molhos industrializados.
+      </div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- GUIA -->
+    <div class="section" id="sec-more">
+      <div class="page-title">Guia<small>Preparo em lote, substituicoes e regras</small></div>
+
+      <div class="guide-section-label">Preparo em Lote</div>
+      <div class="card">
+        <div class="prep-row">
+          <div class="prep-num">1</div>
+          <div class="prep-content">
+            <div class="prep-title">Frango em lote</div>
+            <div class="prep-desc">Grelhe 4-5 peitos com sal, alho e azeite. Guarda ate 4 dias na geladeira. Desfie parte para refeicoes rapidas ao longo da semana.</div>
+          </div>
+        </div>
+        <div class="prep-row">
+          <div class="prep-num">2</div>
+          <div class="prep-content">
+            <div class="prep-title">Carne moida em lote</div>
+            <div class="prep-desc">Refogue 500g com alho, tomate picado e azeite. Divida em porcoes. Dura 4 dias na geladeira. Aquece em 2 minutos.</div>
+          </div>
+        </div>
+        <div class="prep-row">
+          <div class="prep-num">3</div>
+          <div class="prep-content">
+            <div class="prep-title">Batata na airfryer (seu metodo)</div>
+            <div class="prep-desc">Cozinhe as batatas primeiro (15 min na agua). Corte em pedacos grandes. Airfryer com azeite e sal ate dourar. Guarda cozida por 5 dias — reaquecer na airfryer por 5 min. Pedacos grandes = metodo permitido no Whole30.</div>
+          </div>
+        </div>
+        <div class="prep-row">
+          <div class="prep-num">4</div>
+          <div class="prep-content">
+            <div class="prep-title">Ovos cozidos</div>
+            <div class="prep-desc">Cozinhe 6 de uma vez. Guarda com casca por ate 7 dias na geladeira. Snack imediato ou adicao a qualquer refeicao.</div>
+          </div>
+        </div>
+        <div class="prep-row">
+          <div class="prep-num">5</div>
+          <div class="prep-content">
+            <div class="prep-title">Batata doce assada</div>
+            <div class="prep-desc">Asse 3-4 inteiras no forno (200°C por 40 min com casca). Aquece em 1 min no micro ou 5 min na airfryer. Alternativa nutritiva a batata inglesa.</div>
+          </div>
+        </div>
+        <div class="prep-row">
+          <div class="prep-num">6</div>
+          <div class="prep-content">
+            <div class="prep-title">Bife grelhado rapido</div>
+            <div class="prep-desc">Nao precisa de lote. Grelhe na hora com sal e alho. Alcatra ou patinho. 3-4 min de cada lado. Proteina de emergencia.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-section-label">Substituicoes Seguras</div>
+      <div class="card">
+        <div class="sub-item">
+          <div class="sub-from">Se enjoar de</div>
+          <div class="sub-problem">Frango grelhado</div>
+          <div class="sub-arrow">Troque por</div>
+          <div class="sub-solution">Bife, carne moida ou ovo — mesma estrutura de refeicao, so muda a proteina.</div>
+        </div>
+        <div class="sub-item">
+          <div class="sub-from">Se enjoar de</div>
+          <div class="sub-problem">Batata inglesa</div>
+          <div class="sub-arrow">Troque por</div>
+          <div class="sub-solution">Batata doce, mandioca cozida ou inhame — todos permitidos, textura similar.</div>
+        </div>
+        <div class="sub-item">
+          <div class="sub-from">Se enjoar de</div>
+          <div class="sub-problem">Banana no cafe</div>
+          <div class="sub-arrow">Troque por</div>
+          <div class="sub-solution">Morango, maca ou manga — todas permitidas, sem textura complexa.</div>
+        </div>
+        <div class="sub-item">
+          <div class="sub-from">Se enjoar de</div>
+          <div class="sub-problem">Ovo no cafe da manha</div>
+          <div class="sub-arrow">Troque por</div>
+          <div class="sub-solution">Frango desfiado do lote + fruta. Mesma estrutura (proteina + carboidrato), textura diferente.</div>
+        </div>
+        <div class="sub-item">
+          <div class="sub-from">Se enjoar de</div>
+          <div class="sub-problem">Castanhas no snack</div>
+          <div class="sub-arrow">Troque por</div>
+          <div class="sub-solution">Azeitonas + ovo cozido. Mesma logica (gordura + proteina), sabor completamente diferente.</div>
+        </div>
+        <div class="sub-item">
+          <div class="sub-from">Se enjoar de</div>
+          <div class="sub-problem">Tomate no prato</div>
+          <div class="sub-arrow">Troque por</div>
+          <div class="sub-solution">Ignore e sirva sem vegetal. A refeicao continua valida sem ele. Nao ha obrigacao de vegetal a cada refeicao.</div>
+        </div>
+      </div>
+
+      <div class="guide-section-label">Alertas</div>
+      <div class="alert-card danger">
+        <strong>Proibido — pasta de amendoim</strong>
+        Pasta de amendoim e PROIBIDA no Whole30 original. Amendoim e uma leguminosa. Use pasta de amendoa 100% (so amendoa, sem acucar, sem oleo adicionado) como substituto direto.
+      </div>
+      <div class="alert-card warn" style="margin-top:8px">
+        <strong>Atencao comportamental — snack doce</strong>
+        Banana com pasta de amendoa tem sabor muito doce. Se seu objetivo e reduzir o "sugar dragon", use com moderacao ou alterne com ovo + castanhas.
+      </div>
+      <div class="alert-card info" style="margin-top:8px">
+        <strong>Batata na airfryer — voce esta correto</strong>
+        Seu metodo (cozinha primeiro + pedacos grandes na airfryer) e permitido. Batata chips fina ou formato que imita fritura crunchosa = Regra Pancake, proibida. Pedacos grandes = liberado.
+      </div>
+      <div class="alert-card info" style="margin-top:8px">
+        <strong>Snacks — permitidos em 2025</strong>
+        As regras atualizadas permitem snacks, desde que estruturados com pelo menos 2 macronutrientes (proteina + gordura, ou proteina + carboidrato). Comer por tedio ou habito emocional continua sendo algo a evitar.
+      </div>
+
+      <div class="guide-section-label">Regras Rapidas</div>
+      <div class="card">
+        <div class="card-header">Proibido</div>
+        <div class="rule-item"><div class="rule-dot no"></div><div class="rule-text">Acucar em qualquer forma — real, artificial, mel, xarope de borrdo, adocantes de qualquer tipo</div></div>
+        <div class="rule-item"><div class="rule-dot no"></div><div class="rule-text">Laticinios — exceto ghee (manteiga clarificada, sem proteina do leite)</div></div>
+        <div class="rule-item"><div class="rule-dot no"></div><div class="rule-text">Graos — arroz, trigo, aveia, milho, quinoa e todos os derivados</div></div>
+        <div class="rule-item"><div class="rule-dot no"></div><div class="rule-text">Leguminosas — feijao, lentilha, soja, amendoim e derivados (incluindo pasta de amendoim)</div></div>
+        <div class="rule-item"><div class="rule-dot no"></div><div class="rule-text">Alcool em qualquer forma, inclusive para cozinhar</div></div>
+        <div class="rule-item"><div class="rule-dot no"></div><div class="rule-text">Recriar doces, paes ou sobremesas com ingredientes permitidos (Regra Pancake)</div></div>
+      </div>
+      <div class="card" style="margin-top:8px">
+        <div class="card-header">Permitido</div>
+        <div class="rule-item"><div class="rule-dot yes"></div><div class="rule-text"><strong>Proteinas:</strong> carne bovina, frango, ovos, peixe, carne suina sem aditivos</div></div>
+        <div class="rule-item"><div class="rule-dot yes"></div><div class="rule-text"><strong>Batatas:</strong> inglesa, doce, roxa — cozidas, assadas ou na airfryer em pedacos grandes</div></div>
+        <div class="rule-item"><div class="rule-dot yes"></div><div class="rule-text"><strong>Frutas:</strong> todas sem restricao de tipo — moderacao recomendada</div></div>
+        <div class="rule-item"><div class="rule-dot yes"></div><div class="rule-text"><strong>Castanhas:</strong> amendoas, castanha de caju, nozes, macadamia — sem acucar ou oleo adicionado</div></div>
+        <div class="rule-item"><div class="rule-dot yes"></div><div class="rule-text"><strong>Oleos de cozinha:</strong> todos os oleos vegetais sao permitidos (regra atualizada 2024)</div></div>
+        <div class="rule-item"><div class="rule-dot yes"></div><div class="rule-text"><strong>Ghee:</strong> unica excecao na categoria laticinios</div></div>
+        <div class="rule-item"><div class="rule-dot yes"></div><div class="rule-text"><strong>Snacks estruturados:</strong> permitidos desde que tenham pelo menos 2 macronutrientes</div></div>
+      </div>
+
+      <div class="spacer" style="height:24px"></div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nav-btn active" id="nav-home" onclick="switchTab('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Hoje</span>
+    </button>
+    <button class="nav-btn" id="nav-calendar" onclick="switchTab('calendar')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Calendario</span>
+    </button>
+    <button class="nav-btn" id="nav-plan" onclick="switchTab('plan')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      <span>Plano</span>
+    </button>
+    <button class="nav-btn" id="nav-shop" onclick="switchTab('shop')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.96 1.61h9.72a2 2 0 001.95-1.61L23 6H6"/></svg>
+      <span>Compras</span>
+    </button>
+    <button class="nav-btn" id="nav-more" onclick="switchTab('more')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <span>Guia</span>
+    </button>
+  </div>
+
+</div><!-- /app -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="day-modal" onclick="closeModalBg(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div>
+        <div class="modal-day-num" id="m-day-num">1</div>
+        <div class="modal-day-label" id="m-day-label">Whole30 — Dia 1</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="m-meals"></div>
+    <div class="modal-footer">
+      <button class="modal-check-btn" id="m-check-btn" onclick="toggleModalCheck()">Marcar dia como concluido</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// START DATE: 27 de abril de 2025
+// ─────────────────────────────────────────────
+const START_DATE = new Date(2025, 3, 27); // meses 0-based: 3 = abril
+
+// ─────────────────────────────────────────────
+// PLANO ALIMENTAR — 30 DIAS
+// ─────────────────────────────────────────────
+// Estrutura: cafe, almoco, jantar, snack (todos com descricao)
+// Baseado no perfil: paladar seletivo, texturas simples, repeticao aceitavel
+// Proteinas: frango, ovo, carne bovina
+// Carbs: batata inglesa (airfryer), batata doce, banana, morango
+// Gorduras: azeite, castanhas, pasta de amendoa 100%
+// Snack estruturado: 2+ macronutrientes sempre
+
+const MEALS = [
+  // DIA 1
+  {d:1,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"2-3 ovos mexidos no azeite, sal a gosto. 1 banana.",
+   almoco:"Frango grelhado + batata na airfryer",
+   almocoD:"Peito de frango com sal e alho. Batata inglesa: cozinhe 15 min, pedacos grandes na airfryer com azeite e sal ate dourar. Tomate em rodelas ao lado.",
+   jantar:"Carne moida refogada + batata cozida",
+   jantarD:"150-200g de carne moida refogada com alho, tomate e azeite. Batata cozida amassada com azeite e sal.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"1 ovo cozido + punhado de amendoas ou castanhas de caju sem sal. Proteina + gordura."},
+
+  // DIA 2
+  {d:2,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"2-3 ovos mexidos no azeite. 6-8 morangos frescos.",
+   almoco:"Frango grelhado + batata na airfryer",
+   almocoD:"Mesma base do dia 1. Consistencia e sua aliada nesse protocolo.",
+   jantar:"Bife grelhado + batata cozida",
+   jantarD:"Bife de alcatra ou patinho, sal e alho. Batata cozida com azeite.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"1 banana + 1 colher de pasta de amendoa 100% (so amendoa, sem acucar). Aviso: sabor doce — use com moderacao se quiser controlar cravings."},
+
+  // DIA 3
+  {d:3,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"2-3 ovos mexidos. 1 banana. Base solida e previsivel.",
+   almoco:"Carne moida + batata na airfryer",
+   almocoD:"Carne moida do lote, aquecida. Batata na airfryer. Tomate ao lado.",
+   jantar:"Frango grelhado + batata doce assada",
+   jantarD:"Frango grelhado com sal e alho. Batata doce assada no forno (200C, 40 min) ou aquecida do lote. Azeite por cima.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"1 ovo cozido + castanhas. Snack estruturado com proteina e gordura."},
+
+  // DIA 4
+  {d:4,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"2-3 ovos mexidos. Morangos frescos. Alterna fruta para variar levemente.",
+   almoco:"Frango desfiado + batata cozida",
+   almocoD:"Frango do lote desfiado e aquecido. Batata cozida ou aquecida na airfryer. Tomate.",
+   jantar:"Bife + batata airfryer + tomate",
+   jantarD:"Bife grelhado. Batata na airfryer (pedacos grandes). Tomate em rodelas. Prato completo e simples.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"1 banana + pasta de amendoa 100%."},
+
+  // DIA 5
+  {d:5,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"2-3 ovos mexidos. 1 banana.",
+   almoco:"Carne moida + batata doce",
+   almocoD:"Carne moida do lote aquecida. Batata doce assada do lote. Nutritivo e sem esforco.",
+   jantar:"Frango grelhado + batata cozida",
+   jantarD:"Frango grelhado com sal. Batata cozida com azeite. Tomate ao lado se quiser.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"1 ovo cozido + castanhas sem sal."},
+
+  // DIA 6
+  {d:6,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"2-3 ovos. Morangos. Frutas vermelhas ajudam na saciedade matinal.",
+   almoco:"Bife + batata airfryer",
+   almocoD:"Bife grelhado com sal e alho. Batata na airfryer em pedacos grandes.",
+   jantar:"Frango desfiado + batata cozida + tomate",
+   jantarD:"Frango desfiado do lote. Batata cozida. Tomate. Reaproveitamento do lote, pronto em minutos.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"1 banana + pasta de amendoa. Carboidrato + gordura."},
+
+  // DIA 7
+  {d:7,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"Fim da semana 1. Consistencia mantida.",
+   almoco:"Carne moida + batata airfryer",
+   almocoD:"Do lote. Aquece e serve. Tomate ao lado.",
+   jantar:"Bife grelhado + batata doce + tomate",
+   jantarD:"Bife + batata doce assada. Fecha a primeira semana bem.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"1 ovo cozido + castanhas. Snack confiavel para encerrar o dia."},
+
+  // DIA 8
+  {d:8,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"Inicio da semana 2. Base solida.",
+   almoco:"Frango grelhado + batata airfryer",
+   almocoD:"Frango do lote novo. Batata aquecida na airfryer. Tomate.",
+   jantar:"Carne moida + batata cozida",
+   jantarD:"Carne moida com tomate e alho. Batata cozida amassada com azeite.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Proteina + gordura. Tarde segura."},
+
+  // DIA 9
+  {d:9,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"Alterna fruta para variar levemente.",
+   almoco:"Frango grelhado + batata cozida + tomate",
+   almocoD:"Peito grelhado. Batata cozida. Tomate em rodelas.",
+   jantar:"Bife + batata airfryer",
+   jantarD:"Bife grelhado + batata na airfryer. Azeite e sal.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"1 banana + pasta de amendoa 100%."},
+
+  // DIA 10
+  {d:10,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"Semana 2 em ritmo.",
+   almoco:"Carne moida + batata doce assada",
+   almocoD:"Carne do lote aquecida. Batata doce do lote aquecida. Rapido.",
+   jantar:"Frango grelhado + batata airfryer",
+   jantarD:"Frango grelhado simples. Batata na airfryer.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Snack fixo da semana."},
+
+  // DIA 11
+  {d:11,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"Semana 2 continuando.",
+   almoco:"Frango desfiado + batata cozida + tomate",
+   almocoD:"Frango desfiado do lote. Batata cozida. Tomate.",
+   jantar:"Bife + batata doce + tomate",
+   jantarD:"Bife grelhado. Batata doce assada. Tomate em rodelas.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"Snack da tarde estruturado."},
+
+  // DIA 12
+  {d:12,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"Mantendo ritmo.",
+   almoco:"Carne moida + batata airfryer",
+   almocoD:"Do lote. Aquece na airfryer. Tomate ao lado.",
+   jantar:"Frango grelhado + batata cozida",
+   jantarD:"Frango com sal e alho. Batata cozida com azeite. Simples.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Snack confiavel."},
+
+  // DIA 13
+  {d:13,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"Quase fim da semana 2.",
+   almoco:"Bife + batata cozida + tomate",
+   almocoD:"Bife grelhado. Batata cozida. Tomate em rodelas.",
+   jantar:"Frango desfiado + batata doce",
+   jantarD:"Reaproveitamento do lote. Rapido e pratico.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"Carboidrato + gordura."},
+
+  // DIA 14
+  {d:14,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"Fim da semana 2. Dois tercos feitos.",
+   almoco:"Carne moida + batata airfryer",
+   almocoD:"Do lote. Rapido.",
+   jantar:"Frango grelhado + batata cozida + tomate",
+   jantarD:"Prato completo. Fecha a semana bem.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Snack fixo."},
+
+  // DIA 15
+  {d:15,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"Metade do programa. Continue.",
+   almoco:"Frango grelhado + batata airfryer",
+   almocoD:"Base solida da semana 3. Novo lote de frango.",
+   jantar:"Bife + batata doce assada",
+   jantarD:"Bife grelhado. Batata doce do lote.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Snack estruturado."},
+
+  // DIA 16
+  {d:16,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"Dia 16. Voce esta na fase Tiger Blood — energia deve estar melhor.",
+   almoco:"Carne moida + batata cozida + tomate",
+   almocoD:"Do lote. Aquece e serve.",
+   jantar:"Frango grelhado + batata airfryer",
+   jantarD:"Frango simples. Batata na airfryer.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"Snack moderado."},
+
+  // DIA 17
+  {d:17,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"Semana 3 em andamento.",
+   almoco:"Bife + batata airfryer + tomate",
+   almocoD:"Bife grelhado. Batata na airfryer. Tomate.",
+   jantar:"Carne moida + batata doce",
+   jantarD:"Carne do lote. Batata doce aquecida.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Tarde tranquila."},
+
+  // DIA 18
+  {d:18,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"Seguindo firme.",
+   almoco:"Frango desfiado + batata cozida",
+   almocoD:"Do lote. Rapido e sem esforco.",
+   jantar:"Bife + batata cozida + tomate",
+   jantarD:"Bife + batata cozida + tomate. Prato completo.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"Snack estruturado."},
+
+  // DIA 19
+  {d:19,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"11 dias restantes.",
+   almoco:"Carne moida + batata airfryer",
+   almocoD:"Do lote. Facil.",
+   jantar:"Frango grelhado + batata doce",
+   jantarD:"Frango + batata doce. Simples e nutritivo.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Proteina + gordura no lanche da tarde."},
+
+  // DIA 20
+  {d:20,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"Dia 20. 10 dias restantes.",
+   almoco:"Bife + batata cozida + tomate",
+   almocoD:"Bife grelhado. Batata cozida. Tomate em rodelas.",
+   jantar:"Frango grelhado + batata airfryer",
+   jantarD:"Frango + batata na airfryer.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"Snack estruturado."},
+
+  // DIA 21
+  {d:21,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"Fim da semana 3. 9 dias restantes.",
+   almoco:"Carne moida + batata doce assada",
+   almocoD:"Do lote. Nutritivo e sem esforco.",
+   jantar:"Bife + batata airfryer + tomate",
+   jantarD:"Fecha a semana 3 com consistencia.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Snack final da semana."},
+
+  // DIA 22
+  {d:22,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"Semana final. Voce chegou ate aqui.",
+   almoco:"Frango grelhado + batata airfryer",
+   almocoD:"Base solida. Sem surpresas.",
+   jantar:"Carne moida + batata cozida + tomate",
+   jantarD:"Do lote. Simples.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Snack confiavel."},
+
+  // DIA 23
+  {d:23,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"Semana final em andamento.",
+   almoco:"Bife + batata doce + tomate",
+   almocoD:"Bife + batata doce. Tomate ao lado.",
+   jantar:"Frango desfiado + batata airfryer",
+   jantarD:"Do lote. Rapido.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"Snack estruturado."},
+
+  // DIA 24
+  {d:24,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"7 dias restantes.",
+   almoco:"Carne moida + batata airfryer",
+   almocoD:"Do lote. Aquece e serve.",
+   jantar:"Bife + batata cozida + tomate",
+   jantarD:"Bife. Batata. Tomate. Direto ao ponto.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Tarde segura."},
+
+  // DIA 25
+  {d:25,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"Quase la.",
+   almoco:"Frango grelhado + batata cozida",
+   almocoD:"Base. Consistencia.",
+   jantar:"Carne moida + batata doce",
+   jantarD:"Do lote. Batata doce aquecida.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"Snack da tarde."},
+
+  // DIA 26
+  {d:26,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"5 dias restantes.",
+   almoco:"Bife + batata airfryer + tomate",
+   almocoD:"Bife + airfryer. Classico da semana.",
+   jantar:"Frango grelhado + batata doce assada",
+   jantarD:"Frango + batata doce.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Snack."},
+
+  // DIA 27
+  {d:27,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"4 dias. Voce esta quase la.",
+   almoco:"Carne moida + batata cozida + tomate",
+   almocoD:"Do lote. Sem esforco.",
+   jantar:"Bife + batata airfryer",
+   jantarD:"Bife + airfryer.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"Snack estruturado."},
+
+  // DIA 28
+  {d:28,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"3 dias restantes.",
+   almoco:"Frango desfiado + batata cozida",
+   almocoD:"Do lote. Aquece e serve.",
+   jantar:"Carne moida + batata doce + tomate",
+   jantarD:"Carne + batata doce + tomate.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"Snack."},
+
+  // DIA 29
+  {d:29,
+   cafe:"Ovos mexidos + morango",
+   cafeD:"Penultimo dia. Va com tudo.",
+   almoco:"Bife + batata airfryer + tomate",
+   almocoD:"Bife + airfryer. Classico.",
+   jantar:"Frango grelhado + batata cozida",
+   jantarD:"Frango + batata. Simples ate o fim.",
+   snack:"Banana + pasta de amendoa 100%",
+   snackD:"Snack do penultimo dia."},
+
+  // DIA 30
+  {d:30,
+   cafe:"Ovos mexidos + banana",
+   cafeD:"DIA 30. O ultimo cafe do programa. Voce fez isso.",
+   almoco:"Frango grelhado + batata airfryer + tomate",
+   almocoD:"O almoco que se tornou seu aliado nos ultimos 30 dias.",
+   jantar:"Bife grelhado + batata doce assada",
+   jantarD:"O jantar final. Voce completou o Whole30.",
+   snack:"Ovo cozido + castanhas",
+   snackD:"O ultimo snack. Parabens."},
+];
+
+// ─────────────────────────────────────────────
+// LISTA DE COMPRAS
+// ─────────────────────────────────────────────
+const SHOP = {
+  1:[
+    {cat:"Proteinas", items:["Peito de frango — 1,5 kg","Carne moida patinho — 700 g","Bife alcatra ou patinho — 500 g","Ovos — 2 duzias"]},
+    {cat:"Carboidratos", items:["Batata inglesa — 2 kg","Batata doce — 800 g","Banana — 1 cacho","Morango — 2 caixinhas"]},
+    {cat:"Gorduras e Castanhas", items:["Azeite extravirgem — 1 frasco (500 ml)","Pasta de amendoa 100% — 1 pote (sem acucar, sem oleo)","Amendoas ou castanhas de caju sem sal — 200 g"]},
+    {cat:"Vegetais e Temperos", items:["Tomate — 6 unidades","Alho — 1 cabeca","Sal fino ou grosso — estoque"]},
+  ],
+  2:[
+    {cat:"Proteinas", items:["Peito de frango — 1,5 kg","Carne moida — 700 g","Bife — 500 g","Ovos — 1,5 duzia"]},
+    {cat:"Carboidratos", items:["Batata inglesa — 2 kg","Batata doce — 1 kg","Banana — 1 cacho","Morango ou outra fruta — 1 embalagem"]},
+    {cat:"Gorduras e Castanhas", items:["Azeite (reabastecer se necessario)","Castanhas — 150 g","Pasta de amendoa 100% (verificar estoque)"]},
+    {cat:"Vegetais e Temperos", items:["Tomate — 6 unidades","Alho — 1 cabeca"]},
+  ],
+  3:[
+    {cat:"Proteinas", items:["Peito de frango — 1,5 kg","Carne moida — 600 g","Bife — 500 g","Ovos — 1,5 duzia"]},
+    {cat:"Carboidratos", items:["Batata inglesa — 2 kg","Batata doce — 1 kg","Frutas variadas — estoque da semana"]},
+    {cat:"Gorduras e Castanhas", items:["Azeite (verificar estoque)","Castanhas — 150 g","Pasta de amendoa 100% (verificar estoque)"]},
+    {cat:"Vegetais e Temperos", items:["Tomate — 6-8 unidades","Alho — 1 cabeca"]},
+  ],
+  4:[
+    {cat:"Proteinas", items:["Peito de frango — 1,2 kg","Carne moida — 500 g","Bife — 400 g","Ovos — 1 duzia"]},
+    {cat:"Carboidratos", items:["Batata inglesa — 1,5 kg","Batata doce — 800 g","Frutas — ultima semana de estoque"]},
+    {cat:"Gorduras e Castanhas", items:["Azeite (reabastecer se necessario)","Castanhas — 100 g"]},
+    {cat:"Vegetais e Temperos", items:["Tomate — 5 unidades","Alho — 1 cabeca"]},
+  ],
+};
+
+// ─────────────────────────────────────────────
+// FASES
+// ─────────────────────────────────────────────
+const PHASES = [
+  {days:[1,2,3], cls:"adapt", label:"Adaptacao inicial", desc:"Dias 1-3: o corpo esta se ajustando. Cansaco e cravings sao normais e esperados."},
+  {days:[4,5,6,7], cls:"hard", label:"Fase dificil", desc:"Dias 4-7: a fase mais intensa. Irritabilidade e fome elevada sao normais. Continue sem questionar."},
+  {days:[8,9,10,11], cls:"hard", label:"Quero desistir", desc:"Dias 8-11: resistencia maxima. O pior ja passou. Nao mude nada."},
+  {days:[12,13,14], cls:"adapt", label:"Periodo critico", desc:"Dias 12-14: pode parecer que nao vale a pena. A virada esta proxima."},
+  {days:[15,16,17,18,19,20,21], cls:"tiger", label:"Tiger Blood", desc:"Dias 15-21: energia estavel, sono melhor, fome controlada. Voce esta no ritmo."},
+  {days:[22,23,24,25,26,27,28,29,30], cls:"finish", label:"Linha de chegada", desc:"Dias 22-30: reta final. Nao mude nada. Chegue ao dia 30."},
+];
+
+// ─────────────────────────────────────────────
+// ESTADO
+// ─────────────────────────────────────────────
+let S = {
+  checkedDays: {},
+  mealChecks: {},
+  shopChecks: {},
+  shopWeek: 1,
+  modalDay: null,
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('w30_v3');
+    if (raw) {
+      const p = JSON.parse(raw);
+      S.checkedDays = p.checkedDays || {};
+      S.mealChecks = p.mealChecks || {};
+      S.shopChecks = p.shopChecks || {};
+    }
+  } catch(e) {}
+}
+
+function saveState() {
+  try {
+    localStorage.setItem('w30_v3', JSON.stringify({
+      checkedDays: S.checkedDays,
+      mealChecks: S.mealChecks,
+      shopChecks: S.shopChecks,
+    }));
+  } catch(e) {}
+}
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+function todayDay() {
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  const start = new Date(START_DATE);
+  start.setHours(0,0,0,0);
+  const diff = Math.floor((now - start) / 86400000) + 1;
+  return Math.max(1, Math.min(diff, 30));
+}
+
+function doneCount() {
+  return Object.values(S.checkedDays).filter(Boolean).length;
+}
+
+function streak() {
+  const cur = todayDay();
+  let s = 0;
+  for (let d = cur; d >= 1; d--) {
+    if (S.checkedDays[d]) s++;
+    else break;
+  }
+  return s;
+}
+
+function getMeal(d) { return MEALS[d-1] || MEALS[0]; }
+function getPhase(d) { return PHASES.find(p => p.days.includes(d)) || PHASES[0]; }
+
+const CHECK_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+// ─────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────
+function renderHeader() {
+  const cur = todayDay();
+  const done = doneCount();
+  const pct = Math.round((done / 30) * 100);
+  document.getElementById('hdr-day').textContent = cur;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-done').textContent = done;
+  document.getElementById('prog-pct').textContent = pct + '% completo';
+}
+
+function renderHome() {
+  const cur = todayDay();
+  const meal = getMeal(cur);
+  const phase = getPhase(cur);
+
+  // Phase
+  const pb = document.getElementById('phase-banner');
+  pb.className = 'phase-banner ' + phase.cls;
+  pb.innerHTML = `<strong>${phase.label}</strong>${phase.desc}`;
+
+  // Today header
+  document.getElementById('td-num').textContent = cur;
+  document.getElementById('td-label').textContent = `Whole30 — Dia ${cur}`;
+
+  // Check btn
+  const isDone = !!S.checkedDays[cur];
+  const btn = document.getElementById('td-check-btn');
+  btn.className = 'check-btn' + (isDone ? ' checked' : '');
+  document.getElementById('td-check-label').textContent = isDone ? 'Dia concluido' : 'Marcar dia';
+
+  // Meals
+  const types = [
+    {key:'cafe', lbl:'Cafe da manha', name:meal.cafe, desc:meal.cafeD},
+    {key:'almoco', lbl:'Almoco', name:meal.almoco, desc:meal.almocoD},
+    {key:'jantar', lbl:'Jantar', name:meal.jantar, desc:meal.jantarD},
+    {key:'snack', lbl:'Snack', name:meal.snack, desc:meal.snackD},
+  ];
+
+  document.getElementById('td-meals').innerHTML = types.map(t => {
+    const k = `${cur}_${t.key}`;
+    const chk = !!S.mealChecks[k];
+    return `
+      <div class="meal-row" onclick="toggleMeal(${cur},'${t.key}')">
+        <div class="meal-circle${chk?' done':''}">
+          ${chk ? CHECK_SVG : ''}
+        </div>
+        <div class="meal-info">
+          <div class="meal-type">${t.lbl}</div>
+          <div class="meal-name">${t.name}</div>
+          <div class="meal-desc">${t.desc}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Stats
+  document.getElementById('stat-streak').textContent = streak();
+  document.getElementById('stat-remain').textContent = Math.max(0, 30 - doneCount());
+}
+
+function renderCalendar() {
+  const cur = todayDay();
+  const weeks = [
+    {lbl:'Semana 1 — Dias 1 a 7', days:[1,2,3,4,5,6,7]},
+    {lbl:'Semana 2 — Dias 8 a 14', days:[8,9,10,11,12,13,14]},
+    {lbl:'Semana 3 — Dias 15 a 21', days:[15,16,17,18,19,20,21]},
+    {lbl:'Semana 4 — Dias 22 a 28', days:[22,23,24,25,26,27,28]},
+    {lbl:'Ultima semana — Dias 29 e 30', days:[29,30]},
+  ];
+
+  let html = '';
+  weeks.forEach(w => {
+    html += `<div class="week-block"><div class="week-label">${w.lbl}</div><div class="cal-grid">`;
+    w.days.forEach(d => {
+      const done = !!S.checkedDays[d];
+      const isToday = d === cur;
+      const isPast = d < cur;
+      const isFuture = d > cur;
+      let cls = 'cal-day';
+      if (done) cls += ' done';
+      else if (isToday) cls += ' today';
+      else if (isPast) cls += ' past';
+      else if (isFuture) cls += ' future';
+
+      html += `<div class="${cls}" onclick="openModal(${d})">
+        <div class="cal-num">${d}</div>
+        <div class="cal-dot"></div>
+      </div>`;
+    });
+    // Pad last week row to 7
+    const remaining = 7 - w.days.length;
+    if (remaining > 0 && w.days[0] === 29) {
+      for (let i = 0; i < remaining; i++) {
+        html += `<div class="cal-day empty"></div>`;
+      }
+    }
+    html += `</div></div>`;
+  });
+
+  document.getElementById('cal-container').innerHTML = html;
+}
+
+function renderPlan() {
+  const cur = todayDay();
+  const weeks = [
+    {lbl:'Semana 1 — Dias 1 a 7', days:[1,2,3,4,5,6,7]},
+    {lbl:'Semana 2 — Dias 8 a 14', days:[8,9,10,11,12,13,14]},
+    {lbl:'Semana 3 — Dias 15 a 21', days:[15,16,17,18,19,20,21]},
+    {lbl:'Semana 4 e final — Dias 22 a 30', days:[22,23,24,25,26,27,28,29,30]},
+  ];
+
+  let html = '';
+  weeks.forEach(w => {
+    html += `<div class="plan-week-header">${w.lbl}</div>`;
+    w.days.forEach(d => {
+      const meal = getMeal(d);
+      const done = !!S.checkedDays[d];
+      const isToday = d === cur;
+      let cls = 'plan-row';
+      if (done) cls += ' done';
+      if (isToday) cls += ' today';
+
+      let badge = '';
+      if (isToday) badge = `<div class="plan-badge hoje">Hoje</div>`;
+      else if (done) badge = `<div class="plan-badge feito">Feito</div>`;
+
+      html += `<div class="${cls}" onclick="openModal(${d})">
+        <div class="plan-num-box">${d}</div>
+        <div class="plan-info">
+          <div class="plan-title">${meal.cafe}</div>
+          <div class="plan-preview">${meal.almoco}</div>
+        </div>
+        ${badge}
+      </div>`;
+    });
+  });
+
+  document.getElementById('plan-container').innerHTML = html;
+}
+
+function renderShop(week) {
+  S.shopWeek = week;
+  const data = SHOP[week];
+  let html = '';
+  data.forEach((cat, ci) => {
+    html += `<div class="shop-cat"><div class="shop-cat-header">${cat.cat}</div>`;
+    cat.items.forEach((item, ii) => {
+      const key = `${week}_${ci}_${ii}`;
+      const chk = !!S.shopChecks[key];
+      html += `<div class="shop-item${chk?' done-item':''}" onclick="toggleShop('${key}')">
+        <div class="shop-check${chk?' checked':''}">${chk ? CHECK_SVG : ''}</div>
+        <div class="shop-text">${item}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+
+  document.getElementById('shop-container').innerHTML = html;
+
+  document.querySelectorAll('.shop-tab').forEach((btn, i) => {
+    btn.classList.toggle('active', i + 1 === week);
+  });
+}
+
+// ─────────────────────────────────────────────
+// MODAL
+// ─────────────────────────────────────────────
+function openModal(day) {
+  S.modalDay = day;
+  const meal = getMeal(day);
+
+  document.getElementById('m-day-num').textContent = day;
+  document.getElementById('m-day-label').textContent = `Whole30 — Dia ${day}`;
+
+  const types = [
+    {lbl:'Cafe da manha', name:meal.cafe, desc:meal.cafeD},
+    {lbl:'Almoco', name:meal.almoco, desc:meal.almocoD},
+    {lbl:'Jantar', name:meal.jantar, desc:meal.jantarD},
+    {lbl:'Snack', name:meal.snack, desc:meal.snackD},
+  ];
+
+  document.getElementById('m-meals').innerHTML = types.map(t => `
+    <div class="modal-meal">
+      <div class="modal-meal-type">${t.lbl}</div>
+      <div class="modal-meal-name">${t.name}</div>
+      <div class="modal-meal-desc">${t.desc}</div>
+    </div>
+  `).join('');
+
+  updateModalBtn();
+  document.getElementById('day-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function updateModalBtn() {
+  const chk = !!S.checkedDays[S.modalDay];
+  const btn = document.getElementById('m-check-btn');
+  btn.className = 'modal-check-btn' + (chk ? ' checked' : '');
+  btn.textContent = chk ? 'Dia concluido — toque para desmarcar' : 'Marcar dia como concluido';
+}
+
+function closeModalBg(e) {
+  if (e.target === document.getElementById('day-modal')) closeModal();
+}
+
+function closeModal() {
+  document.getElementById('day-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ─────────────────────────────────────────────
+// INTERACOES
+// ─────────────────────────────────────────────
+function toggleDayCheck() {
+  const cur = todayDay();
+  S.checkedDays[cur] = !S.checkedDays[cur];
+  saveState();
+  renderAll();
+}
+
+function toggleModalCheck() {
+  S.checkedDays[S.modalDay] = !S.checkedDays[S.modalDay];
+  saveState();
+  renderAll();
+  updateModalBtn();
+}
+
+function toggleMeal(day, key) {
+  const k = `${day}_${key}`;
+  S.mealChecks[k] = !S.mealChecks[k];
+  saveState();
+  renderHome();
+}
+
+function toggleShop(key) {
+  S.shopChecks[key] = !S.shopChecks[key];
+  saveState();
+  renderShop(S.shopWeek);
+}
+
+function switchShopWeek(w) {
+  renderShop(w);
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + tab).classList.add('active');
+  document.getElementById('nav-' + tab).classList.add('active');
+  document.querySelector('.content').scrollTop = 0;
+}
+
+function renderAll() {
+  renderHeader();
+  renderHome();
+  renderCalendar();
+  renderPlan();
+  renderShop(S.shopWeek);
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+loadState();
+renderAll();
+</script>
+</body>
+</html>
