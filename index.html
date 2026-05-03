@@ -961,6 +961,207 @@ html, body {
   color: #16a34a;
 }
 
+
+/* ── RECIPES ── */
+.rec-cats {
+  display: flex;
+  gap: 8px;
+  padding: 0 14px 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.rec-cats::-webkit-scrollbar { display: none; }
+
+.rec-cat-btn {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border2);
+  background: var(--bg2);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.rec-cat-btn.active {
+  background: var(--blue-dim);
+  border-color: var(--blue-bdr);
+  color: var(--blue2);
+}
+
+.rec-list { padding: 0 14px; }
+
+.rec-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+
+.rec-card:active { box-shadow: none; }
+
+.rec-card-header {
+  padding: 14px 16px 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.rec-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.rec-card-meta {
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 500;
+}
+
+.rec-card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  background: var(--blue-dim);
+  color: var(--blue2);
+  border: 1px solid var(--blue-bdr);
+  white-space: nowrap;
+}
+
+.rec-card-tag.green {
+  background: var(--green-dim);
+  color: #16a34a;
+  border-color: var(--green-bdr);
+}
+
+.rec-card-tag.amber {
+  background: var(--amber-dim);
+  color: #92400e;
+  border-color: var(--amber-bdr);
+}
+
+.rec-body {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+
+.rec-body.open { display: block; }
+
+.rec-section-label {
+  padding: 10px 16px 4px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--blue2);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.rec-ingredients {
+  padding: 0 16px 10px;
+}
+
+.rec-ingredient {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.8;
+  padding-left: 12px;
+  position: relative;
+}
+
+.rec-ingredient::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.rec-steps {
+  padding: 0 16px 14px;
+  counter-reset: step;
+}
+
+.rec-step {
+  display: flex;
+  gap: 11px;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+
+.rec-step:last-child { margin-bottom: 0; }
+
+.rec-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--blue-dim);
+  border: 1px solid var(--blue-bdr);
+  color: var(--blue2);
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.rec-step-text {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.rec-tip {
+  margin: 0 16px 14px;
+  padding: 10px 12px;
+  background: var(--amber-dim);
+  border: 1px solid var(--amber-bdr);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+.rec-tip strong {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--amber);
+  margin-bottom: 3px;
+}
+
+.rec-chevron {
+  width: 18px;
+  height: 18px;
+  color: var(--text3);
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: transform 0.2s;
+}
+
+.rec-card.open .rec-chevron { transform: rotate(180deg); }
+
 /* ── UTILS ── */
 .spacer { height: 16px; }
 
@@ -1229,6 +1430,24 @@ html, body {
       <div class="spacer" style="height:24px"></div>
     </div>
 
+
+    <!-- RECEITAS -->
+    <div class="section" id="sec-recipes">
+      <div class="page-title">Receitas<small>Tecnicas simples, execucao real</small></div>
+
+      <div class="rec-cats" id="rec-cats">
+        <button class="rec-cat-btn active" onclick="filterRec('todos')">Todos</button>
+        <button class="rec-cat-btn" onclick="filterRec('ovos')">Ovos</button>
+        <button class="rec-cat-btn" onclick="filterRec('frango')">Frango</button>
+        <button class="rec-cat-btn" onclick="filterRec('carne')">Carne</button>
+        <button class="rec-cat-btn" onclick="filterRec('batata')">Batata</button>
+        <button class="rec-cat-btn" onclick="filterRec('snack')">Snack</button>
+      </div>
+
+      <div class="rec-list" id="rec-list"></div>
+      <div class="spacer"></div>
+    </div>
+
   </div><!-- /content -->
 
   <!-- BOTTOM NAV -->
@@ -1248,6 +1467,10 @@ html, body {
     <button class="nav-btn" id="nav-shop" onclick="switchTab('shop')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.96 1.61h9.72a2 2 0 001.95-1.61L23 6H6"/></svg>
       <span>Compras</span>
+    </button>
+    <button class="nav-btn" id="nav-recipes" onclick="switchTab('recipes')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
+      <span>Receitas</span>
     </button>
     <button class="nav-btn" id="nav-more" onclick="switchTab('more')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -1993,12 +2216,378 @@ function switchTab(tab) {
   document.querySelector('.content').scrollTop = 0;
 }
 
+
+// ─────────────────────────────────────────────
+// RECEITAS
+// ─────────────────────────────────────────────
+const RECIPES = [
+  // ── OVOS ──
+  {
+    id:'ovo-mexido',
+    cat:'ovos',
+    title:'Ovo mexido cremoso',
+    meta:'2-3 ovos · 8 min · Frigideira antiaderente',
+    tag:'Base', tagColor:'',
+    ingredients:[
+      '2-3 ovos inteiros',
+      '1 colher de cha de azeite extravirgem',
+      'Sal a gosto',
+      'Pimenta-do-reino opcional',
+    ],
+    steps:[
+      'Quebre os ovos direto na frigideira fria. Nao bata antes.',
+      'Adicione o azeite e o sal.',
+      'Ligue o fogo no minimo possivel.',
+      'Mexa devagar e constantemente com uma espatula de silicone, raspando o fundo.',
+      'Retire do fogo antes de parecer pronto — o calor residual termina o cozimento. Deve sair um pouco umido.',
+      'Sirva imediatamente. Nao deixa na frigideira quente.',
+    ],
+    tip:'O segredo e fogo baixo e mexer sem parar. Fogo alto = borracha. Fogo baixo + paciencia = cremoso.',
+  },
+  {
+    id:'ovo-cozido',
+    cat:'ovos',
+    title:'Ovo cozido (gema mole ou dura)',
+    meta:'1-6 ovos · 8-12 min · Panela',
+    tag:'Lote', tagColor:'green',
+    ingredients:[
+      '1 a 6 ovos (aproveite para fazer varios de uma vez)',
+      'Agua suficiente para cobrir',
+      'Pitada de sal na agua (opcional)',
+    ],
+    steps:[
+      'Ferva a agua primeiro antes de colocar os ovos.',
+      'Com agua fervendo, mergulhe os ovos com cuidado usando uma colher.',
+      'Para gema mole: 7 minutos exatos.',
+      'Para gema dura (snack e lote): 10-11 minutos.',
+      'Retire e coloque em agua com gelo ou agua fria corrente por 2 minutos para parar o cozimento.',
+      'Guarda com casca na geladeira por ate 7 dias.',
+    ],
+    tip:'Faca 6 de uma vez no inicio da semana. Snack pronto a qualquer momento sem esforco.',
+  },
+  {
+    id:'ovo-estrelado',
+    cat:'ovos',
+    title:'Ovo estrelado no azeite',
+    meta:'1-2 ovos · 4 min · Frigideira pequena',
+    tag:'Rapido', tagColor:'amber',
+    ingredients:[
+      '1-2 ovos',
+      '1 colher de sopa de azeite',
+      'Sal a gosto',
+    ],
+    steps:[
+      'Aqueca o azeite em fogo medio-baixo por 1 minuto.',
+      'Quebre o ovo com cuidado para nao estourar a gema.',
+      'Tampe a frigideira por 2-3 minutos para a clara cozinhar sem virar.',
+      'A gema deve ficar levemente tremula. Retire e sale.',
+    ],
+    tip:'Nao mexa. Nao vire. Tampa e paciencia fazem o trabalho.',
+  },
+
+  // ── FRANGO ──
+  {
+    id:'file-grelhado',
+    cat:'frango',
+    title:'File de frango grelhado',
+    meta:'1-5 files · 12 min · Frigideira ou grelha',
+    tag:'Lote', tagColor:'green',
+    ingredients:[
+      'Peito de frango (1 ou varios para o lote)',
+      'Sal grosso ou fino',
+      '2 dentes de alho amassados',
+      'Azeite extravirgem',
+    ],
+    steps:[
+      'Se o peito for grosso, corte ao meio na horizontal para ter dois files mais finos. Cozinha mais rapido e uniforme.',
+      'Tempere com sal e alho. Deixe descansar 5 minutos.',
+      'Aqueca a frigideira em fogo medio-alto com um fio de azeite.',
+      'Coloque o frango e NAO mexa por 4-5 minutos. Deixe formar a crosta.',
+      'Vire uma unica vez. Mais 4 minutos do outro lado.',
+      'Retire e deixe descansar 2 minutos antes de cortar. Isso mantem o suco dentro.',
+    ],
+    tip:'O erro mais comum e mexer demais. Coloca e nao toca. A frigideira vai soltar o frango sozinho quando estiver pronto para virar.',
+  },
+  {
+    id:'frango-desfiado',
+    cat:'frango',
+    title:'Frango desfiado (do lote)',
+    meta:'Frango ja grelhado · 5 min · Dois garfos',
+    tag:'Reaproveitamento', tagColor:'amber',
+    ingredients:[
+      'Files de frango ja grelhados (do lote da geladeira)',
+      'Sal a gosto',
+      'Fio de azeite opcional',
+    ],
+    steps:[
+      'Retire o frango da geladeira. Pode estar frio.',
+      'Use dois garfos: um segura, o outro puxa. Desfie no sentido das fibras.',
+      'Para aquecer: frigideira quente com fio de azeite, 2-3 minutos mexendo.',
+      'Ou microondas: 1 minuto coberto com um prato.',
+    ],
+    tip:'Frango desfiado e mais versatil que o file inteiro. Mistura melhor com batata e tomate, textura mais suave.',
+  },
+  {
+    id:'sobrecoxa-assada',
+    cat:'frango',
+    title:'Sobrecoxa assada com batata',
+    meta:'2-4 sobrecoxas · 45 min · Forno ou airfryer',
+    tag:'Prato completo', tagColor:'green',
+    ingredients:[
+      '2-4 sobrecoxas com osso (ou sem)',
+      '2-3 batatas inglesas medias',
+      'Sal, alho amassado, azeite',
+      'Pimenta-do-reino opcional',
+    ],
+    steps:[
+      'Cozinhe as batatas primeiro na agua por 10 minutos. Escorra e corte em pedacos grandes.',
+      'Tempere as sobrecoxas com sal, alho e azeite. Esfregue bem.',
+      'Numa assadeira: coloque as sobrecoxas e a batata ao redor. Regue tudo com azeite.',
+      'Forno a 200C por 35-40 minutos. Vire na metade do tempo.',
+      'Alternativa airfryer: sobrecoxa a 200C por 25 min, virando na metade. Batata separada por 15 min.',
+    ],
+    tip:'Sobrecoxa e mais gordurosa que o peito, por isso fica mais macia e saborosa no forno. Nao resseca.',
+  },
+  {
+    id:'frango-airfryer',
+    cat:'frango',
+    title:'File de frango na airfryer',
+    meta:'1-3 files · 18 min · Airfryer',
+    tag:'Rapido', tagColor:'amber',
+    ingredients:[
+      'Files de frango (finos ou cortados ao meio)',
+      'Sal, alho em po ou alho fresco amassado',
+      'Azeite — um fio',
+    ],
+    steps:[
+      'Tempere os files com sal e alho. Passe um fio de azeite.',
+      'Airfryer a 200C por 10 minutos.',
+      'Vire os files.',
+      'Mais 6-8 minutos ate dourar.',
+      'Verifique cortando o meio — deve estar branco, sem rosado.',
+    ],
+    tip:'Airfryer da uma casquinha que a frigideira nao da. Nao sobreponha os files — deixe espaco para o ar circular.',
+  },
+
+  // ── CARNE ──
+  {
+    id:'bife-grelhado',
+    cat:'carne',
+    title:'Bife grelhado (alcatra ou patinho)',
+    meta:'1-2 bifes · 10 min · Frigideira ou grelha',
+    tag:'Rapido', tagColor:'amber',
+    ingredients:[
+      '1-2 bifes de alcatra ou patinho (2 cm de espessura)',
+      'Sal grosso',
+      '1 dente de alho (opcional)',
+      'Azeite — fio',
+    ],
+    steps:[
+      'Retire o bife da geladeira 10 minutos antes. Carne fria na frigideira quente = cozimento desigual.',
+      'Sale generosamente dos dois lados imediatamente antes de grelhar.',
+      'Frigideira bem quente com fio de azeite. Deve fumegar levemente.',
+      'Coloque o bife e NAO mexa por 3-4 minutos. Deixe a crosta formar.',
+      'Vire uma vez. Mais 3 minutos para ao ponto. 4-5 para bem passado.',
+      'Descanse 2 minutos antes de cortar.',
+    ],
+    tip:'Sal so na hora de grelhar, nao antes. Sal cedo puxa a umidade e o bife perde o suco. Frigideira bem quente e o segundo segredo.',
+  },
+  {
+    id:'carne-moida',
+    cat:'carne',
+    title:'Carne moida refogada (lote)',
+    meta:'500g · 15 min · Panela ou frigideira grande',
+    tag:'Lote', tagColor:'green',
+    ingredients:[
+      '500g de carne moida (patinho)',
+      '2-3 dentes de alho amassados',
+      '1-2 tomates picados grosseiramente',
+      'Sal, azeite',
+    ],
+    steps:[
+      'Aqueca a panela em fogo medio com azeite.',
+      'Refogue o alho por 1 minuto ate dourar levemente.',
+      'Adicione a carne moida. Mexa para quebrar os grumos.',
+      'Deixe a carne dourar sem mexer por 3 minutos, depois comece a misturar.',
+      'Adicione o tomate picado. Tempere com sal.',
+      'Cozinhe mais 5-7 minutos em fogo medio ate o liquido reduzir.',
+      'Divida em porcoes e guarda na geladeira por ate 4 dias.',
+    ],
+    tip:'Nao tampe durante o refogado — queremos que o liquido evapore, nao que cozinhe no vapor. Carne moida encharcada = textura ruim.',
+  },
+
+  // ── BATATA ──
+  {
+    id:'batata-airfryer',
+    cat:'batata',
+    title:'Batata inglesa na airfryer (seu metodo)',
+    meta:'2-4 batatas · 30 min · Panela + airfryer',
+    tag:'Metodo principal', tagColor:'green',
+    ingredients:[
+      '2-4 batatas inglesas medias',
+      'Azeite extravirgem',
+      'Sal grosso',
+    ],
+    steps:[
+      'Lave as batatas. Pode deixar a casca ou descascar — sua preferencia.',
+      'Cozinhe inteiras em agua com sal por 15 minutos. Teste com um garfo: deve entrar com resistencia ainda.',
+      'Escorra e deixe esfriar 5 minutos.',
+      'Corte em pedacos grandes (4-6 partes por batata). Pedacos grandes = permitido no Whole30.',
+      'Coloque na airfryer com azeite e sal. 200C por 15-18 minutos, sacudindo na metade.',
+      'Para o lote: guarda cozida (antes da airfryer) na geladeira por 5 dias. Aquece na airfryer por 8 min na hora.',
+    ],
+    tip:'Cozinhar antes na agua e o que faz a batata ficar macia por dentro e crocante por fora na airfryer. Pular essa etapa = batata crua no meio.',
+  },
+  {
+    id:'batata-doce-forno',
+    cat:'batata',
+    title:'Batata doce assada no forno',
+    meta:'2-4 batatas · 45 min · Forno',
+    tag:'Lote', tagColor:'green',
+    ingredients:[
+      '2-4 batatas doces medias',
+      'Azeite (opcional, so por cima na hora de comer)',
+      'Sal',
+    ],
+    steps:[
+      'Lave bem as batatas. Deixe a casca — ela protege durante o cozimento.',
+      'Fure com um garfo 4-5 vezes em cada batata.',
+      'Coloque diretamente na grade do forno ou numa assadeira. 200C por 40-45 minutos.',
+      'Esta pronta quando um garfo entra sem resistencia e a casca esta levemente enrugada.',
+      'Deixe esfriar antes de guardar. Geladeira por ate 5 dias.',
+      'Para aquecer: microondas 1-2 minutos, ou airfryer a 180C por 5-6 minutos.',
+    ],
+    tip:'Nao precisa de nada durante o cozimento. A batata doce e naturalmente doce — cuidado com a frequencia se quiser controlar cravings por doce.',
+  },
+  {
+    id:'batata-cozida',
+    cat:'batata',
+    title:'Batata cozida amassada com azeite',
+    meta:'2-3 batatas · 20 min · Panela',
+    tag:'Base', tagColor:'',
+    ingredients:[
+      '2-3 batatas inglesas',
+      'Azeite generoso',
+      'Sal a gosto',
+    ],
+    steps:[
+      'Descasque e corte em cubos grandes.',
+      'Coloque em agua fria com sal. Ligue o fogo.',
+      'Cozinhe por 15-18 minutos apos ferver, ate estar bem macia.',
+      'Escorra toda a agua.',
+      'Amasse com um garfo — nao precisa virar pure perfeito, pode ter alguns pedacos.',
+      'Adicione azeite generosamente e sal. Misture.',
+    ],
+    tip:'Diferente de pure industrializado: simples, sem laticinios, sem manteiga. O azeite em quantidade generosa da a cremosidade.',
+  },
+
+  // ── SNACK ──
+  {
+    id:'snack-ovo-castanha',
+    cat:'snack',
+    title:'Snack estruturado: ovo + castanhas',
+    meta:'5 min (com ovo pre-cozido) · Sem cozimento',
+    tag:'Snack padrao', tagColor:'',
+    ingredients:[
+      '1 ovo cozido (do lote)',
+      '1 punhado de amendoas, castanhas de caju ou nozes (sem sal, sem acucar)',
+    ],
+    steps:[
+      'Retire o ovo cozido da geladeira. Descasque.',
+      'Separe as castanhas (aprox. 20-25g, um punhado fechado).',
+      'Come junto ou separado — nao tem ordem certa.',
+    ],
+    tip:'Esse snack tem proteina (ovo) + gordura (castanhas). E a combinacao que segura a fome sem criar habito de comer por craving. Prefira esse ao snack com fruta se seu objetivo e controlar o sugar dragon.',
+  },
+  {
+    id:'snack-banana-amendoa',
+    cat:'snack',
+    title:'Snack: banana + pasta de amendoa',
+    meta:'2 min · Sem cozimento',
+    tag:'Moderacao', tagColor:'amber',
+    ingredients:[
+      '1 banana (de preferencia nao muito madura)',
+      '1 colher de sopa de pasta de amendoa 100% (so amendoa, sem acucar, sem oleo)',
+    ],
+    steps:[
+      'Verifique o rotulo da pasta: ingrediente unico deve ser "amendoa". Nada mais.',
+      'Descasque a banana.',
+      'Passe a pasta por cima ou use como mergulho.',
+    ],
+    tip:'ATENCAO: esse snack e tecnicamente permitido mas comportamentalmente arriscado. O sabor e muito doce e pode acionar cravings. Use no maximo 1 vez por dia e prefira o snack de ovo + castanhas se sentir que esta comendo por habito emocional.',
+  },
+];
+
+let currentRecCat = 'todos';
+
+function filterRec(cat) {
+  currentRecCat = cat;
+  document.querySelectorAll('.rec-cat-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === cat || (cat === 'todos' && btn.textContent === 'Todos'));
+  });
+  renderRecipes();
+}
+
+function toggleRec(id) {
+  const body = document.getElementById('rec-body-' + id);
+  const card = document.getElementById('rec-card-' + id);
+  const isOpen = body.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.rec-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.rec-card').forEach(c => c.classList.remove('open'));
+  // Open this one if it was closed
+  if (!isOpen) {
+    body.classList.add('open');
+    card.classList.add('open');
+  }
+}
+
+function renderRecipes() {
+  const list = currentRecCat === 'todos' ? RECIPES : RECIPES.filter(r => r.cat === currentRecCat);
+  const container = document.getElementById('rec-list');
+
+  container.innerHTML = list.map(r => {
+    const tagCls = r.tagColor ? ' ' + r.tagColor : '';
+    const ingredientsHtml = r.ingredients.map(i => `<div class="rec-ingredient">${i}</div>`).join('');
+    const stepsHtml = r.steps.map((s, i) => `
+      <div class="rec-step">
+        <div class="rec-step-num">${i+1}</div>
+        <div class="rec-step-text">${s}</div>
+      </div>
+    `).join('');
+    const tipHtml = r.tip ? `<div class="rec-tip"><strong>Dica</strong>${r.tip}</div>` : '';
+
+    return `
+      <div class="rec-card" id="rec-card-${r.id}" onclick="toggleRec('${r.id}')">
+        <div class="rec-card-header">
+          <div>
+            <div class="rec-card-title">${r.title}</div>
+            <div class="rec-card-meta">${r.meta}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+            <div class="rec-card-tag${tagCls}">${r.tag}</div>
+            <svg class="rec-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="rec-body" id="rec-body-${r.id}">
+          <div class="rec-section-label">Ingredientes</div>
+          <div class="rec-ingredients">${ingredientsHtml}</div>
+          <div class="rec-section-label">Modo de preparo</div>
+          <div class="rec-steps">${stepsHtml}</div>
+          ${tipHtml}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
 function renderAll() {
   renderHeader();
   renderHome();
   renderCalendar();
   renderPlan();
   renderShop(S.shopWeek);
+  renderRecipes();
 }
 
 // ─────────────────────────────────────────────
